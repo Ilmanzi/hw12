@@ -11,7 +11,7 @@ const ticTacToe = createSlice({
     squares: Array(9).fill(null),
     winner: null,
     nextValue: 'X',
-    status: 'Next player: X',
+    status: 'Now is X Turn!',
   },
   reducers: {
     selectSquare(state, action){
@@ -26,15 +26,24 @@ const ticTacToe = createSlice({
           winner,
           status
         }
+       }
+      },
+          // Todo: bikin reducer restart
+          restartGame(state, action) {
+            return {
+              squares: Array(9).fill(null),
+              winner: null,
+              nextValue: "X",
+              status: "Now is X Turn!",
+            };
       }
     },
-    // Todo: bikin reducer restart
   }
-})
+)
 
 // action
 export const { selectSquare } = ticTacToe.actions;
-
+export const { restartGame } = ticTacToe.actions;
 // store
 const store = configureStore({
   reducer: ticTacToe.reducer
@@ -47,14 +56,22 @@ function Board() {
     dispatch(selectSquare(squareIndex))
   }
 
+function restart(){
+  dispatch(restartGame())
+}
+
   function renderSquare(i) {
     return (
       <Button
-        w="100px"
-        h="100px"
+        colorScheme='blue'
+        w="130px"
+        h="130px"
+        mx={1}
         variant="outline"
-        borderWidth="2px"
+        borderWidth="3px"
         borderColor="gray"
+        fontSize="8xl"
+        textAlign="center"
         onClick={() => selectSquareHandler(i)}
       >
         {squares[i]}
@@ -80,12 +97,15 @@ function Board() {
         {renderSquare(7)}
         {renderSquare(8)}
       </Flex>
-      <Button>
+      <Button 
+      onClick={restart}
+      colorScheme="teal"
+      fontSize="2xl">
         {/* Todo: styling restart */}
-        restart
+        Restart the game!
       </Button>
     </VStack>
-  );
+  ); 
 }
 
 function Game() {
@@ -104,8 +124,8 @@ function calculateStatus(winner, squares, nextValue) {
   return winner
     ? `Winner: ${winner}`
     : squares.every(Boolean)
-      ? `Scratch: Cat's game`
-      : `Next player: ${nextValue}`;
+      ? `Draw : No Winner !`
+      : `Now is ${nextValue} turn!`;
 }
 
 // eslint-disable-next-line no-unused-vars
