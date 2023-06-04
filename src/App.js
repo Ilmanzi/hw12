@@ -63,14 +63,15 @@ function restart(){
   function renderSquare(i) {
     return (
       <Button
-        colorScheme='blue'
+        colorScheme='black'
         w="130px"
         h="130px"
         mx={1}
         variant="outline"
         borderWidth="3px"
-        borderColor="gray"
+        borderColor="gray.400"
         fontSize="8xl"
+        fontFamily="Segoe Print"
         textAlign="center"
         onClick={() => selectSquareHandler(i)}
       >
@@ -81,7 +82,10 @@ function restart(){
 
   return (
     <VStack>
-      <Text >{status}</Text>
+      <Text
+      fontSize="4xl"
+      fontFamily="MV Boli"
+      >{status}</Text>
       <Flex >
         {renderSquare(0)}
         {renderSquare(1)}
@@ -99,8 +103,11 @@ function restart(){
       </Flex>
       <Button 
       onClick={restart}
-      colorScheme="teal"
-      fontSize="2xl">
+      colorScheme="yellow"
+      fontSize="2xl"
+      w="400px"
+      fontFamily="MV Boli"
+      >
         {/* Todo: styling restart */}
         Restart the game!
       </Button>
@@ -122,9 +129,9 @@ function Game() {
 // eslint-disable-next-line no-unused-vars
 function calculateStatus(winner, squares, nextValue) {
   return winner
-    ? `Winner: ${winner}`
+    ? `The Winner is ${winner} !! Grats`
     : squares.every(Boolean)
-      ? `Draw : No Winner !`
+      ? `Draw: Try Again !`
       : `Now is ${nextValue} turn!`;
 }
 
