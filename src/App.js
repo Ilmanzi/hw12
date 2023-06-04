@@ -83,7 +83,7 @@ function restart(){
   return (
     <VStack>
       <Text
-      fontSize="4xl"
+      fontSize="5xl"
       fontFamily="MV Boli"
       >{status}</Text>
       <Flex >
